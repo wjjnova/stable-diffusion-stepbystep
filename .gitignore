@@ -1,0 +1,4 @@
+models/*.ckpt
+models/*.safetensors
+scripts/__pycache__/*
+scripts/*.png
