@@ -1,6 +1,7 @@
 import torch
 from ldm.models.autoencoder import AutoencoderKL
 from image_helper import load_image, save_image
+from safetensors.torch import load_file
 
 #VAE模型
 def load_vae():
@@ -26,8 +27,9 @@ def load_vae():
     }
     vae = AutoencoderKL(**init_config)
     #加载预训练参数
-    pl_sd = torch.load("../models/sd-v1-4.ckpt", map_location="cpu")
-    sd = pl_sd["state_dict"]
+    #pl_sd = torch.load("../models/sd-v1-4.ckpt", map_location="cpu")
+    #sd = pl_sd["state_dict"]
+    sd = load_file("F:/repo/stable-diffusion-stepbystep/models/deliberate_v2.safetensors")
     model_dict = vae.state_dict()
     for k, v in model_dict.items():
         model_dict[k] = sd["first_stage_model."+k]

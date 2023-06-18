@@ -1,5 +1,6 @@
 import torch
 from ldm.modules.diffusionmodules.openaimodel import UNetModel
+from safetensors.torch import load_file
 
 #加载unet模型
 def load_unet():
@@ -19,8 +20,9 @@ def load_unet():
             "legacy": False,
     }
     unet = UNetModel(**unet_init_config)
-    pl_sd = torch.load("../models/sd-v1-4.ckpt", map_location="cpu")
-    sd = pl_sd["state_dict"]
+    #pl_sd = torch.load("F:/repo/stable-diffusion-stepbystep/models/sd-v1-4.ckpt", map_location="cpu")
+    #sd = pl_sd["state_dict"]
+    sd = load_file("F:/repo/stable-diffusion-stepbystep/models/deliberate_v2.safetensors")
 
     model_dict = unet.state_dict()
     for k, v in model_dict.items():
